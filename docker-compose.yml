@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    hostname: dynamodblocal
+    container_name: dynamodb-local
+    command: '-jar DynamoDBLocal.jar -sharedDb -dbPath /data'
+    volumes:
+      - ./dynamodb-data:/data
+    ports:
+      - '8000:8000'
+    expose:
+      - '8000'
+    environment:
+      - AWS_ACCESS_KEY_ID=fakeAccessKey
+      - AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey

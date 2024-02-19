@@ -15,30 +15,6 @@ export class DynamoDBService {
     });
   }
 
-  async createTodoTable(): Promise<void> {
-    const params: AWS.DynamoDB.CreateTableInput = {
-      TableName: this.tableName,
-      KeySchema: [
-        { AttributeName: 'id', KeyType: 'HASH' }, // Partition key
-      ],
-      AttributeDefinitions: [
-        { AttributeName: 'id', AttributeType: 'S' }, // S for string
-      ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5,
-      },
-    };
-
-    try {
-      await this.documentClient.createTable(params).promise();
-      console.log('Table created successfully');
-    } catch (error) {
-      console.error('Error creating table:', error);
-      throw error;
-    }
-  }
-
   async get(
     params: AWS.DynamoDB.DocumentClient.GetItemInput,
   ): Promise<AWS.DynamoDB.DocumentClient.GetItemOutput> {
